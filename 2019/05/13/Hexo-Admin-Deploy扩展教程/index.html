@@ -16,11 +16,11 @@
     <link rel="dns-prefetch" href="http://yoursite.com">
     <!--SEO-->
 
-    <meta name="keywords" content="hexo">
+    <meta name="keywords" content="扩展">
 
 
-    <meta name="description" content="就是测试一下hexo-admin的deploye功能
-">
+    <meta name="description" content="参考hexo-admin/issues
+背景由于Windows的某种原因，依据网站的大部分教程，均会抛出deploy Error: spawn UNKNOWN异常。而GitHub上issues给...">
 
 
 
@@ -32,7 +32,7 @@
     <!--Title-->
 
 
-<title>测试一下hexo-admin的deploy | xiaolu�Ĳ���</title>
+<title>Hexo Admin Deploy扩展教程 | xiaolu�Ĳ���</title>
 
 
     <link rel="alternate" href="/atom.xml" title="xiaolu�Ĳ���" type="application/atom+xml">
@@ -107,7 +107,7 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                                <a href="/categories/手机/"><i class="fa "></i>手机</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -131,16 +131,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="测试一下hexo-admin的deploy">
+        <h1 id="Hexo Admin Deploy扩展教程">
             
-	            测试一下hexo-admin的deploy
+	            Hexo Admin Deploy扩展教程
             
         </h1>
         <div class="post-meta">
     
         <span class="categories-meta fa-wrap">
             <i class="fa fa-folder-open-o"></i>
-            
+            <a class="category-link" href="/categories/hexo/">hexo</a>
         </span>
     
 
@@ -148,6 +148,8 @@
         <span class="fa-wrap">
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/扩展/">扩展</a>
                 
             </span>
         </span>
@@ -157,7 +159,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/12</span>
+            <span class="date-meta">2019/05/13</span>
         </span>
         
             <span class="fa-wrap">
@@ -172,7 +174,21 @@
     </div>
     
     <div class="post-body post-content">
-        <p>就是测试一下hexo-admin的deploye功能</p>
+        <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/jaredly/hexo-admin/issues/94" target="_blank" rel="noopener">hexo-admin/issues</a></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>由于Windows的某种原因，依据网站的大部分教程，均会抛出<code>deploy Error: spawn UNKNOWN</code>异常。而GitHub上issues给出了相关解决方案，现在总结一下具体的过程(填坑</p>
+<h2 id="填坑"><a href="#填坑" class="headerlink" title="填坑"></a>填坑</h2><ul>
+<li><p>打开站点配置文件(<code>\xxxx.github.io\_config.yml</code>)，在<code>admin</code>中加入<code>deployCommand: &#39;sh hexo-deploy.sh&#39;</code>。示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">admin:</span><br><span class="line">  username: 看不见</span><br><span class="line">  password_hash: 看不见</span><br><span class="line">  secret: 看不见</span><br><span class="line">  deployCommand: &apos;sh hexo-deploy.sh&apos;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在根目录中(<code>\xxxx.github.io\</code>)新建<code>hexo-deploy.sh</code>文件，内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开deploy.js(<code>\xxxx.github.io\node_modules\hexo-admin\deploy.js</code>)，将<code>var proc = spawn(command, [message], {detached: true});</code>更改为<code>var proc = spawn((process.platform === &quot;win32&quot; ? &quot;hexo.cmd&quot; : &quot;hexo&quot;), [&#39;d&#39;, &#39;-g&#39;]);</code><br>更改完后的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">module.exports = function (command, message, done) &#123;</span><br><span class="line">  done = once(done);</span><br><span class="line">  var proc = spawn((process.platform === &quot;win32&quot; ? &quot;hexo.cmd&quot; : &quot;hexo&quot;), [&apos;d&apos;, &apos;-g&apos;]);</span><br><span class="line">  var stdout = &apos;&apos;;</span><br><span class="line">  var stderr = &apos;&apos;;</span><br><span class="line">  proc.stdout.on(&apos;data&apos;, function(data)&#123;stdout += data.toString()&#125;)</span><br><span class="line">  proc.stderr.on(&apos;data&apos;, function(data)&#123;stderr += data.toString()&#125;)</span><br><span class="line">  proc.on(&apos;error&apos;, function(err) &#123;</span><br><span class="line">    done(err, &#123;stdout: stdout, stderr: stderr&#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  proc.on(&apos;close&apos;, function () &#123;</span><br><span class="line">    done(null, &#123;stdout: stdout, stderr: stderr&#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><a href="http://hlx-blog.oss-cn-beijing.aliyuncs.com/18-5-1/52473923.jpg" target="_blank" rel="noopener"><img src="http://hlx-blog.oss-cn-beijing.aliyuncs.com/18-5-1/52473923.jpg" alt="效果图"></a></p>
+<h3 id="转载自"><a href="#转载自" class="headerlink" title="转载自"></a>转载自</h3><p><a href="http://www.inmyai.com/2018/05/01/Hexo-Admin-Deploy%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/" target="_blank" rel="noopener">http://www.inmyai.com/2018/05/01/Hexo-Admin-Deploy%E6%AD%A3%E7%A1%AE%E6%89%93%E5%BC%80%E6%96%B9%E5%BC%8F/</a></p>
 
     </div>
     
@@ -210,10 +226,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
+        <a href="/2019/05/13/一加3t刷lineageos出现错误7的解决办法/" class="pre-post btn btn-default" title="一加3t刷lineageos出现错误7的解决办法">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">一加3t刷lineageos出现错误7的解决办法</span>
+        </a>
     
-        <a href="/2019/05/12/测试hexo-admin/" class="next-post btn btn-default" title="测试hexo-admin">
+    
+        <a href="/2019/05/12/如何新建标签和分裂/" class="next-post btn btn-default" title="如何新建标签和分类">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">测试hexo-admin</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">如何新建标签和分类</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -256,7 +277,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#填坑"><span class="toc-text">填坑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果"><span class="toc-text">效果</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#转载自"><span class="toc-text">转载自</span></a></li></ol></li></ol>
         
     </div>
 </aside>

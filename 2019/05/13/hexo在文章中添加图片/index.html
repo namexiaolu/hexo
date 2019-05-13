@@ -19,9 +19,9 @@
     <meta name="keywords" content="hexo">
 
 
-    <meta name="description" content="年发生的房间爱上的叫法是发生考虑到发件丝黛芬妮
-发神经的法律是的发生
-">
+    <meta name="description" content="hexo内本地图片直接引入无法显示问题
+把主页配置文件_config.yml 里的post_asset_folder:这个选项设置为true
+在根目录下输入npm install hexo-as...">
 
 
 
@@ -33,7 +33,7 @@
     <!--Title-->
 
 
-<title>ceshi反反复复 | xiaolu�Ĳ���</title>
+<title>hexo在文章中添加图片 | xiaolu�Ĳ���</title>
 
 
     <link rel="alternate" href="/atom.xml" title="xiaolu�Ĳ���" type="application/atom+xml">
@@ -108,7 +108,7 @@
                             </li>
                         
                             <li role="presentation" class="text-center">
-                                <a href="/categories/后端/"><i class="fa "></i>后端</a>
+                                <a href="/categories/手机/"><i class="fa "></i>手机</a>
                             </li>
                         
                             <li role="presentation" class="text-center">
@@ -132,16 +132,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="ceshi反反复复">
+        <h1 id="hexo在文章中添加图片">
             
-	            ceshi反反复复
+	            hexo在文章中添加图片
             
         </h1>
         <div class="post-meta">
     
         <span class="categories-meta fa-wrap">
             <i class="fa fa-folder-open-o"></i>
-            <a class="category-link" href="/categories/ceshi/">ceshi</a>
+            
         </span>
     
 
@@ -158,7 +158,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/11</span>
+            <span class="date-meta">2019/05/13</span>
         </span>
         
             <span class="fa-wrap">
@@ -173,8 +173,15 @@
     </div>
     
     <div class="post-body post-content">
-        <p>年发生的房间爱上的叫法是发生考虑到发件丝黛芬妮</p>
-<p>发神经的法律是的发生</p>
+        <h3 id="hexo内本地图片直接引入无法显示问题"><a href="#hexo内本地图片直接引入无法显示问题" class="headerlink" title="hexo内本地图片直接引入无法显示问题"></a>hexo内本地图片直接引入无法显示问题</h3><ol>
+<li>把主页配置文件_config.yml 里的post_asset_folder:这个选项设置为true</li>
+<li>在根目录下输入npm install hexo-asset-image –save，这是下载安装一个可以上传本地图片的插件</li>
+<li>再运行hexo new “xxxx”来生成md博文时，/source/_posts文件夹内除了xxxx.md文件还有一个同名的文件夹</li>
+<li>最后在xxxx.md中想引入图片时，先把图片复制到xxxx这个文件夹中，然后只需要在xxxx.md中按照markdown的格式引入图片即可<br>如：</li>
+</ol>
+<p><code>![你想输入的替代文字](xxxx/图片名.jpg</code></p>
+<hr>
+<p>作者：Lval<br>来源：CSDN<br>原文：<a href="https://blog.csdn.net/weixin_42215897/article/details/88938417" target="_blank" rel="noopener">https://blog.csdn.net/weixin_42215897/article/details/88938417</a><br>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
 
     </div>
     
@@ -212,15 +219,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/05/12/如何新建标签和分裂/" class="pre-post btn btn-default" title="如何新建标签和分类">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">如何新建标签和分类</span>
-        </a>
     
-    
-        <a href="/2019/05/11/ceshi/" class="next-post btn btn-default" title="ceshi">
+        <a href="/2019/05/13/一加3t刷lineageos出现错误7的解决办法/" class="next-post btn btn-default" title="一加3t刷lineageos出现错误7的解决办法">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">ceshi</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">一加3t刷lineageos出现错误7的解决办法</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -263,7 +265,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <p>暂无目录</p>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo内本地图片直接引入无法显示问题"><span class="toc-text">hexo内本地图片直接引入无法显示问题</span></a></li></ol>
         
     </div>
 </aside>
