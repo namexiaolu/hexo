@@ -1,7 +1,10 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags: ['标签1，标签2']
+categories:
+- 
+tags: 
+- 
+- 
 comments: true
-img: 
 ---
